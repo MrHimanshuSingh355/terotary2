@@ -4,8 +4,9 @@ var canvas = document.getElementById("gameCanvas");
 var ctx = canvas.getContext("2d");
 let trainBox = 3; // Maximum length of the trail
 const playbt = document.getElementById("play");
+      playbt.style.width = "60%";
 const restartbt = document.getElementById("restart");
-let a = 0;
+let a = 0;console.log(a);
 let isPlaying = false;
 
 const score = document.getElementById("score");
@@ -22,10 +23,14 @@ function restart() {
   dy = 0;
   trainBox = 3; // Reset trail length limit
   playbt.style.display = "block";
+  restartbt.style.width = "30%";
+
 };
 function playbtn() {
   if (playbt.innerText == "Play") {
     playbt.innerText = "Pause";
+    playbt.style.width = "30%";
+    restartbt.style.display = "block";
     isPlaying = true;
     if (a == 0) {
       dx = speed;
@@ -80,9 +85,11 @@ let dot = {
 function draw() {
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   // Draw the trail
-  ctx.fillStyle = "#5fa2fa";
+  ctx.fillStyle = "white ";
+  ctx.fillStyle.borderColor = "blue";
+  ctx.fillStyle.borderWidth = "2px";
+  ctx.fillStyle.borderStyle = "solid";
   for (var i = 0; i < trail.length; i++) {
     var t = trail[i];
     ctx.fillRect(t.x, t.y, size, size);
@@ -91,10 +98,16 @@ function draw() {
   // Draw the player
   ctx.fillStyle = "blue";
   ctx.fillRect(playerX, playerY, size, size);
-
+  
   // Draw the dot
+  ctx.beginPath();
+  ctx.arc(dot.x + size / 2, dot.y + size / 2, size / 2, 0, Math.PI * 2);
   ctx.fillStyle = "red";
+  ctx.fill();
+  ctx.closePath();
   ctx.fillRect(dot.x, dot.y, size, size);
+  
+  
 }
 
 // Function to update player position
@@ -122,8 +135,10 @@ function update() {
     // trail = [];  
     dx = 0;
     dy = 0;
-isPlaying = false;
-
+    isPlaying = false;
+    playbt.innerText = "Play";
+    a = 0; // Reset direction
+    
     // trainBox =3;  
     restartbt.style.width = "60%";
     playbt.style.display = "none";
@@ -135,14 +150,16 @@ isPlaying = false;
       playerX === t.x && playerY === t.y
     ) {
       // alert("Game Over! You have attacked yourself.");
-    restartbt.style.width = "60%";
+      restartbt.style.width = "60%";
       playbt.style.display = "none";
       // playerX = 50;  
       // playerY = 50;
       // trail = [];  
       dx = 0;
       dy = 0;
-isPlaying = false;
+      isPlaying = false;
+      playbt.innerText = "Play";
+      a = 0; // Reset direction
       // trainBox =3; 
       return;
     }

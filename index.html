@@ -74,6 +74,9 @@
       font-size: 22px;
       font-weight: 300;
     }
+    .restart{
+      display: none;
+    }
 
     .sec1:active {
       transform: scale(0.90);
@@ -136,7 +139,7 @@
   <section class="main">
     <section class="section1">
       <button id="play" class="sec1" onclick="playbtn()">Play</button>
-      <button id="restart" class="mode" onclick="restart()">Re-play</button>
+      <button id="restart" class="mode restart" onclick="restart()">Re-play</button>
       <button id="mode" class="mode" onclick="mode()">Mode ></button>
     </section>
     <section class="section">
